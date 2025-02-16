@@ -1,24 +1,25 @@
 package sk.brainit.nfqes.pki.api.evaluators;
 
-import sk.brainit.nfqes.pki.api.conditions.ICondition;
+import sk.brainit.nfqes.pki.api.conditions.IEvaluable;
 import sk.brainit.nfqes.pki.api.loggers.ILogger;
 
 import java.util.List;
 
 public abstract class Evaluator<T, I> implements IEvaluator<T, I>, IRunnable {
-    protected List<ICondition> conditions;
+    protected List<IEvaluable<T, I>> evaluables;
     protected List<ILogger<I>> loggers;
 
-    protected Evaluator(List<ICondition> conditions) {
-        this.conditions = conditions;
+    protected Evaluator(List<IEvaluable<T, I>> evaluables) {
+        this.evaluables = evaluables;
     }
 
-    protected Evaluator(List<ICondition> conditions, List<ILogger<I>> loggers) {
-        this(conditions);
+    protected Evaluator(List<IEvaluable<T, I>> evaluables, List<ILogger<I>> loggers) {
+        this(evaluables);
         this.loggers = loggers;
     }
 
     protected void doLogging(T value) {
-        loggers.forEach(x -> x.log(process(value)));
+        if(loggers != null)
+            loggers.forEach(x -> x.log(evaluate(value)));
     }
 }

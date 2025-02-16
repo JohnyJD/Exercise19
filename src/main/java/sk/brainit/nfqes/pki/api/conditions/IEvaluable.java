@@ -1,5 +1,5 @@
 package sk.brainit.nfqes.pki.api.conditions;
 
-public interface IEvaluable<T> {
-    boolean evaluate(T value);
+public interface IEvaluable<T,I> {
+    I evaluate(T value);
 }
