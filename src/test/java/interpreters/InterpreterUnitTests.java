@@ -13,7 +13,7 @@ class InterpreterUnitTests {
                 Exception.class,
                 () -> interpreter.interpret("BAD ExPression", 10)
         );
-        Assertions.assertEquals("Invalid Expression", ex.getMessage());
+        Assertions.assertEquals("Invalid Expression - Unknown expression", ex.getMessage());
     }
 
     @Test
@@ -29,6 +29,15 @@ class InterpreterUnitTests {
     void validOrExpression() {
         boolean result = interpreter.interpret(
                 "NEQ 2 OR EQ 10",
+                10
+        );
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    void oneExpression() {
+        boolean result = interpreter.interpret(
+                "NEQ 2",
                 10
         );
         Assertions.assertTrue(result);

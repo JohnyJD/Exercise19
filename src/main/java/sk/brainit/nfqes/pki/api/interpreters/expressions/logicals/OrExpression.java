@@ -1,4 +1,6 @@
-package sk.brainit.nfqes.pki.api.interpreters.expressions;
+package sk.brainit.nfqes.pki.api.interpreters.expressions.logicals;
+
+import sk.brainit.nfqes.pki.api.interpreters.expressions.IExpression;
 
 /**
  * Represents logical operation || (OR)

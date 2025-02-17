@@ -1,6 +1,12 @@
 package sk.brainit.nfqes.pki.api.interpreters;
 
 import sk.brainit.nfqes.pki.api.interpreters.expressions.*;
+import sk.brainit.nfqes.pki.api.interpreters.expressions.logicals.AndExpression;
+import sk.brainit.nfqes.pki.api.interpreters.expressions.logicals.OrExpression;
+import sk.brainit.nfqes.pki.api.interpreters.expressions.operations.DivisibleExpression;
+import sk.brainit.nfqes.pki.api.interpreters.expressions.operations.EqualsExpression;
+import sk.brainit.nfqes.pki.api.interpreters.expressions.operations.GroupExpression;
+import sk.brainit.nfqes.pki.api.interpreters.expressions.operations.NotEqualsExpression;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -56,11 +62,6 @@ public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
     }
 
     private IExpression getExpression(String[] expressionParts, IExpression parent) {
-        if (index.get() >= expressionParts.length) {
-            // When index is out of bounds return current parent expression
-            return parent;
-        }
-
         // Check for operations (e.g. DIV, EQ, ... ) and build
         IExpression expression = checkForExpression(expressionParts);
         if(expression != null) {
@@ -68,18 +69,18 @@ public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
             if (index.get() >= expressionParts.length) {
                 return expression;
             }
+            // Check if operation does have logical operator next
             IExpression logicalExpression = checkForLogicalExpression(expressionParts, expression);
             if(logicalExpression != null) {
+                // If yes return logical operator instead
+                // It encapsulates operation inside
                 return logicalExpression;
             }
-            return expression;
+            // Invalid expression - operation needs logical expression next
+            throw new RuntimeException("Invalid Expression - Missing logical expression");
         }
-
-        IExpression logicalExpression = checkForLogicalExpression(expressionParts, parent);
-        if(logicalExpression != null) {
-            return logicalExpression;
-        }
-        throw new RuntimeException("Invalid Expression");
+        // invalid expression - Unknown valid expression
+        throw new RuntimeException("Invalid Expression - Unknown expression");
     }
 
     /**

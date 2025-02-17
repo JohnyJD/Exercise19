@@ -1,8 +1,9 @@
-package sk.brainit.nfqes.pki.api.interpreters.expressions;
+package sk.brainit.nfqes.pki.api.interpreters.expressions.operations;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sk.brainit.nfqes.pki.api.interpreters.expressions.IExpression;
 
 /**
  * Special expression

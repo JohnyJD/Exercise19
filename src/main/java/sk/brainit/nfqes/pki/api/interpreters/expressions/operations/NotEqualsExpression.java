@@ -1,4 +1,6 @@
-package sk.brainit.nfqes.pki.api.interpreters.expressions;
+package sk.brainit.nfqes.pki.api.interpreters.expressions.operations;
+
+import sk.brainit.nfqes.pki.api.interpreters.expressions.IExpression;
 
 /**
  * Represents equals negation operation (not equals)
