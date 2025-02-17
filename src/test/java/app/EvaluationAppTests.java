@@ -3,7 +3,7 @@ package app;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import sk.brainit.nfqes.pki.api.EvaluationApp;
+import sk.brainit.nfqes.pki.api.app.EvaluationApp;
 import sk.brainit.nfqes.pki.api.evaluators.NumericEvaluator;
 
 public class EvaluationAppTests {

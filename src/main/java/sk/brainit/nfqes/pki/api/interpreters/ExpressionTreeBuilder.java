@@ -3,15 +3,26 @@ package sk.brainit.nfqes.pki.api.interpreters;
 import sk.brainit.nfqes.pki.api.interpreters.expressions.*;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * Translates simplified string expression following simple rules
+ * into complex numerical-logical operations
+ * Rules:
+ * operators - DIV, EQ, NEQ
+ * logical operators - OR, AND
+ * Syntax - DIV 2 OR EQ 7 - divisble by 2 or equals 7
+ * ! Input is not parameter, because it is passed dynamically
+ * More rules can be added as expressions
+ */
 public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
-    private Logger logger = Logger.getLogger(ExpressionTreeBuilder.class.getName());
+    // Used as a Reference for steps of building
     private AtomicInteger index;
     private static ExpressionTreeBuilder instance;
     private Integer input;
 
+    /**
+     * Singleton
+     */
     private ExpressionTreeBuilder() {
         reset();
     }
@@ -23,6 +34,14 @@ public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
         return instance;
     }
 
+    /**
+     * Builds expression representation from string representation with specified rules
+     * String expression is first splitted with gap
+     * Then is recursively building expression
+     * @param expression
+     * @param input
+     * @return
+     */
     @Override
     public IExpression build(String expression, Integer input) {
         this.input = input;
@@ -38,9 +57,11 @@ public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
 
     private IExpression getExpression(String[] expressionParts, IExpression parent) {
         if (index.get() >= expressionParts.length) {
+            // When index is out of bounds return current parent expression
             return parent;
         }
 
+        // Check for operations (e.g. DIV, EQ, ... ) and build
         IExpression expression = checkForExpression(expressionParts);
         if(expression != null) {
             increment();
@@ -61,6 +82,15 @@ public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
         throw new RuntimeException("Invalid Expression");
     }
 
+    /**
+     * Checks if part on current index is a operation
+     * If yes builds operation
+     * Shifts index one position in order to find value
+     * Then returns built expression
+     * Otherwise returns null
+     * @param expressionParts Splitted parts of string expression
+     * @return Expression or null
+     */
     private IExpression checkForExpression(String[] expressionParts) {
         String part = expressionParts[index.get()];
         if(part.equals(Expression.DIV.toString())) {
@@ -75,6 +105,15 @@ public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
         return null;
     }
 
+    /**
+     * Checks if part on current index is a logical operation (AND, OR) if not returns null
+     * If yes builds operation
+     * Left side operand is current parent expression passed as reference
+     * Right side operand will be calculated - new parent will be this operator
+     * @param expressionParts Splitted parts of string expression
+     * @param parent Left side expression
+     * @return Expression or null
+     */
     private IExpression checkForLogicalExpression(String[] expressionParts, IExpression parent) {
         String part = expressionParts[index.get()];
         if (part.equals(LogicalExpression.AND.toString())) {
@@ -92,6 +131,9 @@ public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
         return null;
     }
 
+    /**
+     * Resets index to 0
+     */
     private void reset() {
         if (index == null)
             index = new AtomicInteger(0);
@@ -99,6 +141,9 @@ public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
             index.set(0);
     }
 
+    /**
+     * Increments index by 1
+     */
     private void increment() {
         index.set(index.get()+1);
     }

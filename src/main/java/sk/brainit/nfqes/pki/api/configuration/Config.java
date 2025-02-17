@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * Configuration class
+ */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Config {

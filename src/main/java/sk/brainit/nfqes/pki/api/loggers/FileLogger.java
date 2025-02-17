@@ -4,6 +4,12 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * File Logger - conditional
+ * To enable file logger - set enableFileLogger to true and set path to log file
+ *      boolean enableFileLogger = true/false
+ *      String fileLogPath = path/to/log.txt
+ */
 public class FileLogger implements ILogger<String> {
     private final Logger logger = Logger.getLogger(FileLogger.class.getName());
     private final String filePath;
@@ -12,6 +18,10 @@ public class FileLogger implements ILogger<String> {
         this.filePath = filePath;
     }
 
+    /**
+     * Logs String data from Evaluator to specified file
+     * @param object String data
+     */
     @Override
     public void log(String object) {
         try {

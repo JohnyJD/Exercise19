@@ -1,5 +1,7 @@
 package sk.brainit.nfqes.pki.api;
 
+import sk.brainit.nfqes.pki.api.app.EvaluationApp;
+import sk.brainit.nfqes.pki.api.app.IApp;
 import sk.brainit.nfqes.pki.api.configuration.IConfigurable;
 
 public class Main {

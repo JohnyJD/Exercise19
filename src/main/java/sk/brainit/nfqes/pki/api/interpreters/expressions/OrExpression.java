@@ -1,5 +1,8 @@
 package sk.brainit.nfqes.pki.api.interpreters.expressions;
 
+/**
+ * Represents logical operation || (OR)
+ */
 public class OrExpression implements IExpression {
     public IExpression leftSide;
     public IExpression rightSide;

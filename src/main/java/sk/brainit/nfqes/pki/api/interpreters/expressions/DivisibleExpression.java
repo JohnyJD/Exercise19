@@ -1,6 +1,9 @@
 package sk.brainit.nfqes.pki.api.interpreters.expressions;
 
 
+/**
+ * Represents divisibility - input is divisible by divisor
+ */
 public class DivisibleExpression implements IExpression {
     private final int input;
     private final int divisor;

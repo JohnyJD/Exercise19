@@ -1,21 +1,18 @@
 package sk.brainit.nfqes.pki.api.interpreters.expressions;
 
+import lombok.Setter;
+
+/**
+ * Represents logical operation && (AND)
+ */
 public class AndExpression implements IExpression {
 
     public IExpression leftSide;
+    @Setter
     public IExpression rightSide;
 
     public AndExpression(IExpression leftSide) {
         this.leftSide = leftSide;
-    }
-
-    public void setRightSide(IExpression rightSide) {
-        this.rightSide = rightSide;
-    }
-
-    public AndExpression(IExpression leftSide, IExpression rightSide) {
-        this.leftSide = leftSide;
-        this.rightSide = rightSide;
     }
 
     @Override

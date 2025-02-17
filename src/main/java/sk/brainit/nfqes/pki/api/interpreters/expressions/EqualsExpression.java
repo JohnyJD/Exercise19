@@ -1,5 +1,8 @@
 package sk.brainit.nfqes.pki.api.interpreters.expressions;
 
+/**
+ * Represents equals operation
+ */
 public class EqualsExpression implements IExpression {
     private final int input;
     private final int value;

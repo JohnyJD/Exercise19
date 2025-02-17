@@ -12,6 +12,11 @@ import sk.brainit.nfqes.pki.api.loggers.FileLogger;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/**
+ * Numeric evaluator evaluates Integers as inputs and String as its output
+ * Uses StringBuilder to incrementally build output String which in the end will be logged
+ * Runnable configurations start, end, step are modifiable
+ */
 public class NumericEvaluator extends Evaluator<Integer, String> {
     private Logger logger = Logger.getLogger(NumericEvaluator.class.getName());
     private final StringBuilder sb;
@@ -28,6 +33,9 @@ public class NumericEvaluator extends Evaluator<Integer, String> {
         addLogger(new ConsoleLogger());
     }
 
+    /**
+     * Iterating through integers with defined step
+     */
     @Override
     public void run() {
         for(int i = start; i <= end; i+=step) {
@@ -36,6 +44,12 @@ public class NumericEvaluator extends Evaluator<Integer, String> {
         doLogging(sb.toString());
     }
 
+    /**
+     * Evaluates output based on set conditions
+     * Conditions are applied in each iteration
+     * @param input Integer value from iteration
+     * @return Output value based on conditional logic
+     */
     @Override
     public String evaluate(Integer input) {
         boolean match = false;
@@ -55,6 +69,11 @@ public class NumericEvaluator extends Evaluator<Integer, String> {
         return sb.toString();
     }
 
+    /**
+     * Loads configuration if config file was loaded
+     * When config is not loaded returns null
+     * @param path Config file path
+     */
     @Override
     public void load(String path) {
         if(path != null && !path.isEmpty()) {

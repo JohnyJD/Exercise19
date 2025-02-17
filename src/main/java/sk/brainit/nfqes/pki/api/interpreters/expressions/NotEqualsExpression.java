@@ -1,5 +1,8 @@
 package sk.brainit.nfqes.pki.api.interpreters.expressions;
 
+/**
+ * Represents equals negation operation (not equals)
+ */
 public class NotEqualsExpression implements IExpression {
     private final int input;
     private final int value;

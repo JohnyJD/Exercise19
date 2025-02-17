@@ -4,6 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Special expression
+ * Cannot be defined (yet)
+ * Creates groups of operations
+ * Mainly used as root element
+ */
 @NoArgsConstructor
 @Setter
 public class GroupExpression implements IExpression {
