@@ -3,8 +3,11 @@ package sk.brainit.nfqes.pki.api.interpreters;
 import sk.brainit.nfqes.pki.api.interpreters.expressions.*;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
+    private Logger logger = Logger.getLogger(ExpressionTreeBuilder.class.getName());
     private AtomicInteger index;
     private static ExpressionTreeBuilder instance;
     private Integer input;
@@ -24,11 +27,10 @@ public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
     public IExpression build(String expression, Integer input) {
         this.input = input;
         expression = expression.trim();
-        String[] splitted = expression.split(" ");
-
+        String[] parts = expression.split(" ");
         GroupExpression groupExpression = new GroupExpression();
         groupExpression.setExpression(
-                getExpression(splitted, groupExpression)
+                getExpression(parts, groupExpression)
         );
         reset();
         return groupExpression;
@@ -56,8 +58,7 @@ public class ExpressionTreeBuilder implements IExpressionTreeBuilder {
         if(logicalExpression != null) {
             return logicalExpression;
         }
-        increment();
-        return getExpression(expressionParts, parent);
+        throw new RuntimeException("Invalid Expression");
     }
 
     private IExpression checkForExpression(String[] expressionParts) {

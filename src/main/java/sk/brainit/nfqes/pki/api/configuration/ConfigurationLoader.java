@@ -1,11 +1,11 @@
 package sk.brainit.nfqes.pki.api.configuration;
 
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,8 +18,8 @@ public class ConfigurationLoader {
         try {
             File file = new File(path);
             if (file.exists()) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                Config config = objectMapper.readValue(file, Config.class);
+                FileInputStream fileInputStream = new FileInputStream(file);
+                Config config = deserialize(fileInputStream);
                 logger.info("Configuration loaded");
                 return config;
             }
@@ -28,6 +28,10 @@ public class ConfigurationLoader {
             logger.log(Level.WARNING, "Error while reading configuration", e);
             return null;
         }
+    }
 
+    public static Config deserialize(InputStream inputStream) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(inputStream, Config.class);
     }
 }
