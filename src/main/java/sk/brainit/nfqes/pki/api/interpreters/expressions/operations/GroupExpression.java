@@ -15,9 +15,6 @@ import sk.brainit.nfqes.pki.api.interpreters.expressions.IExpression;
 @Setter
 public class GroupExpression implements IExpression {
     private IExpression expression;
-    @Setter
-    @Getter
-    private IExpression parent;
 
     @Override
     public boolean interpret() {
