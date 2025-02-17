@@ -7,7 +7,6 @@ import sk.brainit.nfqes.pki.api.interpreters.expressions.IExpression;
  * Represents logical operation && (AND)
  */
 public class AndExpression implements IExpression {
-
     public IExpression leftSide;
     @Setter
     public IExpression rightSide;

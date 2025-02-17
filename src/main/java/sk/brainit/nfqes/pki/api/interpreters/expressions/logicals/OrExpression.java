@@ -1,5 +1,6 @@
 package sk.brainit.nfqes.pki.api.interpreters.expressions.logicals;
 
+import lombok.Setter;
 import sk.brainit.nfqes.pki.api.interpreters.expressions.IExpression;
 
 /**
@@ -7,19 +8,11 @@ import sk.brainit.nfqes.pki.api.interpreters.expressions.IExpression;
  */
 public class OrExpression implements IExpression {
     public IExpression leftSide;
+    @Setter
     public IExpression rightSide;
 
     public OrExpression(IExpression leftSide) {
         this.leftSide = leftSide;
-    }
-
-    public OrExpression(IExpression leftSide, IExpression rightSide) {
-        this.leftSide = leftSide;
-        this.rightSide = rightSide;
-    }
-
-    public void setRightSide(IExpression rightSide) {
-        this.rightSide = rightSide;
     }
 
     @Override
