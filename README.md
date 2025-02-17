@@ -26,6 +26,9 @@ with less configuration complexity.
 - Example : DIV 2 OR EQ 10 - divisible by 2 or equals 10
 
 ## Configuration
+In order to run console app with configuration, config path must set via
+app arguments. First argument = config path 
+
 - int start - starting value of iteration;
 - int end   - end value of iteration;
 - int step  - step of iteration;
@@ -53,15 +56,19 @@ with less configuration complexity.
       "result": "fuu"
     },
     {
-    "expression": "DIV 5 AND NEQ 5 AND NEQ 10",
-      "result": "ahoj"
+    "expression": "DIV 2",
+      "result": "foo"
     },
     {
-      "expression": "EQ 1 OR EQ 2 OR EQ 3 OR EQ 100",
-      "result": "ahoj22222"
+      "expression": "DIV 4",
+      "result": "fuu"
+    },
+    {
+      "expression": "EQ 4",
+      "result": "faa"
     }
   ],
   "enableFileLogger": true,
-  "fileLogPath" : "/Users/jandunaj/Desktop/Exercise19/log2.txt"
+  "fileLogPath" : "/path/to/log2.txt"
 }
 `
