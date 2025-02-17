@@ -1,5 +1,6 @@
 package evaluators;
 
+import configuration.ConfigurationUnitTests;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import sk.brainit.nfqes.pki.api.conditions.NumericCondition;
@@ -8,6 +9,7 @@ import sk.brainit.nfqes.pki.api.loggers.FileLogger;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,22 +24,16 @@ class EvaluatorUnitTests {
     }
 
     @Test
-    void fileLoggingTest() throws IOException {
-        File f = File.createTempFile("log", "txt");
+    void loadConfigTest() throws IOException {
+        File f = File.createTempFile("config", "json");
+        FileOutputStream fos = new FileOutputStream(f);
+        fos.write(ConfigurationUnitTests.configValue.getBytes());
+        evaluator.load(f.getAbsolutePath());
 
-        FileLogger logger = new FileLogger(f.getAbsolutePath());
-        NumericEvaluator ev = new NumericEvaluator();
-
-        ev.addLogger(logger);
-        ev.addConditions(List.of(new NumericCondition("DIV 2", "lol")));
-        ev.setStart(1);
-        ev.setEnd(4);
-        ev.run();
-
-        try (FileInputStream fis = new FileInputStream(f)) {
-            String loggedData = new String(fis.readAllBytes());
-            Assertions.assertEquals("1\nlol\n3\nlol\n", loggedData);
-        }
-
+        Assertions.assertEquals(1, evaluator.getStart());
+        Assertions.assertEquals(100,evaluator.getEnd());
+        Assertions.assertEquals(1, evaluator.getStep());
+        Assertions.assertEquals(2, evaluator.getLoggers().size());
+        Assertions.assertEquals(2, evaluator.getConditions().size());
     }
 }

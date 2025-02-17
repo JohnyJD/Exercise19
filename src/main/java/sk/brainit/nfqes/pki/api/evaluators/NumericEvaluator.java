@@ -1,5 +1,6 @@
 package sk.brainit.nfqes.pki.api.evaluators;
 
+import lombok.Getter;
 import lombok.Setter;
 import sk.brainit.nfqes.pki.api.conditions.ICondition;
 import sk.brainit.nfqes.pki.api.conditions.NumericCondition;
@@ -20,10 +21,13 @@ import java.util.stream.Collectors;
 public class NumericEvaluator extends Evaluator<Integer, String> {
     private Logger logger = Logger.getLogger(NumericEvaluator.class.getName());
     private final StringBuilder sb;
+    @Getter
     @Setter
     private int start = 1;
+    @Getter
     @Setter
     private int end = 100;
+    @Getter
     @Setter
     private int step = 1;
 

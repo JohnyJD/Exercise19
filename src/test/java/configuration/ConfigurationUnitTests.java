@@ -8,12 +8,12 @@ import sk.brainit.nfqes.pki.api.configuration.ConfigurationLoader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-class ConfigurationUnitTests {
-    String value = "{\"start\":1,\"end\":100,\"step\":1,\"expressions\":[{\"expression\":\"DIV 2\",\"result\":\"foo\"},{\"expression\":\"DIV 4\",\"result\":\"fuu\"}],\"enableFileLogger\":true,\"fileLogPath\":\"/log.txt\"}";
+public class ConfigurationUnitTests {
+    public static String configValue = "{\"start\":1,\"end\":100,\"step\":1,\"expressions\":[{\"expression\":\"DIV 2\",\"result\":\"foo\"},{\"expression\":\"DIV 4\",\"result\":\"fuu\"}],\"enableFileLogger\":true,\"fileLogPath\":\"/log.txt\"}";
 
     @Test
     void deserializeConfiguration() throws IOException {
-        ByteArrayInputStream stream = new ByteArrayInputStream(value.getBytes());
+        ByteArrayInputStream stream = new ByteArrayInputStream(configValue.getBytes());
         Config config = ConfigurationLoader.deserialize(stream);
 
         Assertions.assertNotNull(config);

@@ -1,5 +1,6 @@
 package sk.brainit.nfqes.pki.api.evaluators;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sk.brainit.nfqes.pki.api.conditions.ICondition;
 import sk.brainit.nfqes.pki.api.configuration.IConfigurable;
@@ -15,6 +16,7 @@ import java.util.List;
  * @param <I> Output data (determined by condition)
  */
 @NoArgsConstructor
+@Getter
 public abstract class Evaluator<T, I> implements IEvaluator<T, I>, IRunnable, IConfigurable {
     protected IInterpreter interpreter;
     protected List<ICondition<T, I>> conditions = new ArrayList<>();
